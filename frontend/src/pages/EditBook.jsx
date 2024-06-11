@@ -15,7 +15,7 @@ export const EditBook = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/books/${id}`)
+      .get(`https://bookstore-o22t53pyq-yashraj0ps-projects.vercel.app/books/${id}`)
       .then((response) => {
         console.log(response);
         setAuthor(response.data.data.author);
@@ -37,7 +37,7 @@ export const EditBook = () => {
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5555/books/${id}`, data)
+      .put(`https://bookstore-o22t53pyq-yashraj0ps-projects.vercel.app/books/${id}`, data)
       .then(() => {
         setLoading(false);
         navigate("/");

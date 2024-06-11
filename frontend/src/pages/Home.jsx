@@ -13,7 +13,7 @@ export const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5555/books")
+      .get("https://bookstore-o22t53pyq-yashraj0ps-projects.vercel.app/books")
       .then((res) => {
         console.log(res);
         setBooks(res.data.data);
