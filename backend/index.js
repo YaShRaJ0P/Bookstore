@@ -10,8 +10,16 @@ dotenv.config();
 // Initialize Express app
 const app = express();
 
+// CORS configuration
+const corsOptions = {
+  origin: "https://bookstore-frontend-two.vercel.app", // Replace with your frontend's URL
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ["Content-Type"],
+  credentials: true, // Allow credentials
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions)); // Apply CORS middleware globally
 app.use(express.json()); // Middleware for parsing JSON request body
 
 // Routes
