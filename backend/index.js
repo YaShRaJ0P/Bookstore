@@ -4,31 +4,25 @@ import cors from "cors";
 import dotenv from "dotenv";
 import booksRoute from "./routes/booksRoute.js";
 
-// Load environment variables
 dotenv.config();
 
-// Initialize Express app
 const app = express();
 
-// CORS configuration
 const corsOptions = {
-  origin: "https://bookstore-frontend-two.vercel.app", // Replace with your frontend's URL
+  origin: "https://bookstore-frontend-two.vercel.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: ["Content-Type"],
-  credentials: true, // Allow credentials
+  credentials: true,
 };
 
-// Middleware
-app.use(cors(corsOptions)); // Apply CORS middleware globally
-app.use(express.json()); // Middleware for parsing JSON request body
+app.use(cors(corsOptions));
+app.use(express.json());
 
-// Routes
 app.use("/books", booksRoute);
 app.get("/", (req, res) => {
   res.send("Server is running.");
 });
 
-// MongoDB Connection
 mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGO_URL, {

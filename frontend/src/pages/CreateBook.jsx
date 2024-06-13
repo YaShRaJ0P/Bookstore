@@ -9,9 +9,14 @@ export const CreateBook = () => {
   const [author, setAuthor] = useState("");
   const [publishYear, setPublishYear] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSaveBook = () => {
+    if (!title || !author || !publishYear) {
+      setError("Please fill all fields.");
+      return;
+    }
     const data = {
       title,
       author,
@@ -63,6 +68,7 @@ export const CreateBook = () => {
             className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>
+        {<p className="text-sm text-red-600">{error}</p>}
         <button className="p-2 bg-sky-300 m-8" onClick={handleSaveBook}>
           Save
         </button>

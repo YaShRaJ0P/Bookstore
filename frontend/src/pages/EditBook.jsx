@@ -9,18 +9,19 @@ export const EditBook = () => {
   const [author, setAuthor] = useState("");
   const [publishYear, setPublishYear] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://bookstore-o22t53pyq-yashraj0ps-projects.vercel.app/books/${id}`)
+      .get(`http://localhost:5555/books/${id}`)
       .then((response) => {
-        console.log(response);
-        setAuthor(response.data.data.author);
-        setPublishYear(response.data.data.publishYear);
-        setTitle(response.data.data.title);
+        console.log(response.data);
+        setAuthor(response.data.author);
+        setPublishYear(response.data.publishYear);
+        setTitle(response.data.title);
         setLoading(false);
       })
       .catch((error) => {
@@ -30,6 +31,10 @@ export const EditBook = () => {
   }, []);
 
   const handleEditBook = () => {
+    if (!title || !author || !publishYear) {
+      setError("Please fill all fields.");
+      return;
+    }
     const data = {
       title,
       author,
@@ -81,6 +86,7 @@ export const EditBook = () => {
             className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>
+        {<p className="text-sm text-red-600">{error}</p>}
         <button className="p-2 bg-sky-300 m-8" onClick={handleEditBook}>
           Save
         </button>
