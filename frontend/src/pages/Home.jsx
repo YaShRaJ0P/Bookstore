@@ -15,7 +15,6 @@ export const Home = () => {
     axios
       .get("http://localhost:5555/books", { withCredentials: true })
       .then((res) => {
-        console.log(res);
         setBooks(res.data.data);
         setLoading(false);
       })

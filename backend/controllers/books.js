@@ -48,6 +48,9 @@ export const UpdateBook = async (req, res) => {
     if (!req.body.title || !req.body.author || !req.body.publishYear) {
       return res.status(400).send("Please fill all the fields");
     }
+    const regex = /^(?!.*[-e])\d{0,4}$/;
+    if (req.body.publishYear.length !== 4 && regex.test(req.body.publishYear))
+      return res.status(400).send("Please enter vaid Year.");
     const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body);
     if (!updatedBook)
       return res.status(404).send({ message: "Book not found." });

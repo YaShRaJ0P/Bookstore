@@ -17,6 +17,12 @@ export const CreateBook = () => {
       setError("Please fill all fields.");
       return;
     }
+    const regex = /^(?!.*[-e])\d{0,4}$/;
+
+    if (publishYear.length !== 4 && regex.test(publishYear)) {
+      setError("Enter a valid year.");
+      return;
+    }
     const data = {
       title,
       author,
@@ -35,6 +41,10 @@ export const CreateBook = () => {
       });
   };
 
+  const removeError = () => {
+    setError("");
+  };
+
   return (
     <div className="p-4">
       <BackButton />
@@ -47,6 +57,7 @@ export const CreateBook = () => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            onFocus={removeError}
             className="border-2 border-gray-500 px-4 py-2 w-full"
           />
         </div>
@@ -56,6 +67,7 @@ export const CreateBook = () => {
             type="text"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            onFocus={removeError}
             className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>
@@ -65,6 +77,7 @@ export const CreateBook = () => {
             type="number"
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
+            onFocus={removeError}
             className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>

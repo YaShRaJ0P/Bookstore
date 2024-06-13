@@ -18,7 +18,6 @@ export const EditBook = () => {
     axios
       .get(`http://localhost:5555/books/${id}`)
       .then((response) => {
-        console.log(response.data);
         setAuthor(response.data.author);
         setPublishYear(response.data.publishYear);
         setTitle(response.data.title);
@@ -33,6 +32,12 @@ export const EditBook = () => {
   const handleEditBook = () => {
     if (!title || !author || !publishYear) {
       setError("Please fill all fields.");
+      return;
+    }
+    const regex = /^(?!.*[-e])\d{0,4}$/;
+
+    if (publishYear.length !== 4 && regex.test(publishYear)) {
+      setError("Enter a valid year.");
       return;
     }
     const data = {
@@ -52,7 +57,9 @@ export const EditBook = () => {
         console.log(error);
       });
   };
-
+  const removeError = () => {
+    setError("");
+  };
   return (
     <div className="p-4">
       <BackButton />
@@ -65,6 +72,7 @@ export const EditBook = () => {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            onFocus={removeError}
             className="border-2 border-gray-500 px-4 py-2 w-full"
           />
         </div>
@@ -74,6 +82,7 @@ export const EditBook = () => {
             type="text"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
+            onFocus={removeError}
             className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>
@@ -83,6 +92,7 @@ export const EditBook = () => {
             type="number"
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
+            onFocus={removeError}
             className="border-2 border-gray-500 px-4 py-2  w-full "
           />
         </div>
