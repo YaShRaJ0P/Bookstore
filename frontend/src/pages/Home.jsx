@@ -51,7 +51,7 @@ export const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {books.map((book, index) => {
+            {books?.map((book, index) => {
               return (
                 <tr key={book._id} className="h-8">
                   <td className="border border-slate-600 rounded-md text-center">
