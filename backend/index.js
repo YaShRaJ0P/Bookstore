@@ -11,7 +11,13 @@ const app = express();
 // Middleware for parsing request body
 app.use(express.json());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://bookstore-ofx6bxw3t-yashraj0ps-projects.vercel.app"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.use("/books", booksRoute);
 app.use("/user", userRoute);
