@@ -1,6 +1,6 @@
 import { useState } from "react";
-import {BackButton} from "../components/BackButton";
-import {Spinner} from "../components/Spinner";
+import { BackButton } from "../components/BackButton";
+import { Spinner } from "../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,7 @@ export const CreateBook = () => {
     };
     setLoading(true);
     axios
-      .post("https://bookstore-o22t53pyq-yashraj0ps-projects.vercel.app/books", data)
+      .post("http://localhost:5555/books", data)
       .then(() => {
         setLoading(false);
         navigate("/");

@@ -1,29 +1,47 @@
 import express from "express";
 import mongoose from "mongoose";
-import booksRoute from "./routes/booksRoute.js";
 import cors from "cors";
 import dotenv from "dotenv";
+import booksRoute from "./routes/booksRoute.js";
+
+// Load environment variables
 dotenv.config();
-mongoose.set("strictQuery", false);
+
+// Initialize Express app
 const app = express();
 
-// Middleware for parsing request body
-app.use(express.json());
-
+// Middleware
 app.use(cors());
-app.use("/", (req, res) => {
+app.use(express.json()); // Middleware for parsing JSON request body
+
+// CORS headers manually
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
+// Routes
+app.use("/books", booksRoute);
+app.get("/", (req, res) => {
   res.send("Server is running.");
 });
-app.use("/books", booksRoute);
 
+// MongoDB Connection
+mongoose.set("strictQuery", false);
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("App connected to database");
     app.listen(process.env.PORT, () => {
-      console.log(`App is listening to port: ${process.env.PORT}`);
+      console.log(`App is listening on port: ${process.env.PORT}`);
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.error("Database connection error:", error);
   });

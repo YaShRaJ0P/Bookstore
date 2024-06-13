@@ -13,7 +13,7 @@ export const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:5555/books")
+      .get("http://localhost:5555/books", { withCredentials: true })
       .then((res) => {
         console.log(res);
         setBooks(res.data.data);
