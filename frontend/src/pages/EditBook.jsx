@@ -37,7 +37,7 @@ export const EditBook = () => {
     };
     setLoading(true);
     axios
-      .put(`https://bookstore-o22t53pyq-yashraj0ps-projects.vercel.app/books/${id}`, data)
+      .put(`http://localhost:5555/books/${id}`, data)
       .then(() => {
         setLoading(false);
         navigate("/");

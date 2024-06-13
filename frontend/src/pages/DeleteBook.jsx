@@ -1,6 +1,6 @@
 import { useState } from "react";
-import {BackButton} from "../components/BackButton";
-import {Spinner} from "../components/Spinner";
+import { BackButton } from "../components/BackButton";
+import { Spinner } from "../components/Spinner";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -12,7 +12,7 @@ export const DeleteBook = () => {
   const handleDeleteBook = () => {
     setLoading(true);
     axios
-      .delete(`https://bookstore-o22t53pyq-yashraj0ps-projects.vercel.app/books/${id}`)
+      .delete(`http://localhost:5555/books/${id}`)
       .then(() => {
         setLoading(false);
         navigate("/");
