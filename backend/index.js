@@ -11,7 +11,9 @@ const app = express();
 app.use(express.json());
 
 app.use(cors());
-
+app.use("/", (req, res) => {
+  res.send("Server is running.");
+});
 app.use("/books", booksRoute);
 
 mongoose
